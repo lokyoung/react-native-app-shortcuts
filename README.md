@@ -1,4 +1,3 @@
-
 # react-native-app-shortcuts
 
 ## Getting started

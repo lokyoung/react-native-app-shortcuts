@@ -1,19 +1,22 @@
 package com.reactlibrary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.app.Activity;
-import android.util.Log;
 import android.os.Build;
+import android.support.annotation.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 
 public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
 
@@ -68,13 +71,13 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void exists(String id, Callback successCallback, Callback failureCallback) {
+    public void exists(String id, Promise promise) {
         if (Build.VERSION.SDK_INT < 25) return;
 
         if (isShortcutExist(id)) {
-            successCallback.invoke();
+            promise.resolve(null);
         } else {
-            failureCallback.invoke();
+            promise.reject(SHORTCUT_NOT_EXIST, "Not found this app shortcut");
         }
     }
 
