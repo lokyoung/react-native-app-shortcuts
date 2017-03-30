@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.rnas;
 
 import java.util.Arrays;
 import java.util.Collections;
