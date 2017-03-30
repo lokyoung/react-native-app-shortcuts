@@ -48,24 +48,24 @@ import RNAppShortcuts from 'react-native-app-shortcuts';
 **Add App Shortcut**
 ```js
 RNAppShortcuts.addShortCut({
-	id: 'id1',
-	shortLabel: 'sample',
-	longLabel: 'sample label',
-	iconFolderName: 'drawable',
-	iconName: 'icon',
-	activityName: 'MainActivity'
+  id: 'id1',
+  shortLabel: 'sample',
+  longLabel: 'sample label',
+  iconFolderName: 'drawable',
+  iconName: 'icon',
+  activityName: 'MainActivity'
 })
 ```
 
 **Update App Shortcut**
 ```js
 RNAppShortcuts.updateShortCut({
-	id: 'id1',
-	shortLabel: 'updated',
-	longLabel: 'updated label',
-	iconFolderName: 'drawable',
-	iconName: 'icon',
-	activityName: 'AnotherActivity'
+  id: 'id1',
+  shortLabel: 'updated',
+  longLabel: 'updated label',
+  iconFolderName: 'drawable',
+  iconName: 'icon',
+  activityName: 'AnotherActivity'
 })
 ```
 
@@ -98,9 +98,9 @@ RNAppShortcuts.removeAllShortCuts()
 Set the id of the parameter of `RNAppShortcuts.exists`.
 ```js
 RNAppShortcuts.exists('id').then(function() {
-	// Exists
+  // Exists
 }).catch(function(err) {
-	// Not exists
+  // Not exists
 })
 ```
 
@@ -110,6 +110,6 @@ In Native android, we set an Intent to describe the behavior after trigger the s
 `RNAppShortcuts.handleShortcut` will trigger after you click the shortcut. And you will get the id of the shortcut here.
 ```js
 RNAppShortcuts.handleShortcut(function(id) {
-	// Do anything you want. Just like navigate to specify page by the id and so on.
+  // Do anything you want. Just like navigate to specify page by the id and so on.
 })
 ```
