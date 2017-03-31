@@ -81,6 +81,7 @@ RNAppShortcuts.updateShortCut({
 ```
 
 **Options Meaning**
+
 | Name | Type | Description |
 | --- | ---  | --- |
 | id | String | Id of the shortcut. |
