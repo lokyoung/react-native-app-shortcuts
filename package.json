@@ -7,12 +7,14 @@
     "type": "git",
     "url": "git+https://github.com/lokyoung/react-native-app-shortcuts.git"
   },
-  "bugs": {
-    "url": "https://github.com/lokyoung/react-native-app-shortcuts/issues"
-  },
   "keywords": [
-    "react-native, android, app shortcuts"
+    "react-native",
+    "android",
+    "app shortcuts"
   ],
   "author": "Cain Liu",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lokyoung/react-native-app-shortcuts/issues"
+  }
 }
