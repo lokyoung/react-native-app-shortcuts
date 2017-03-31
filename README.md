@@ -86,8 +86,7 @@ RNAppShortcuts.updateShortCut({
 | id | String | Id of the shortcut. |
 | shortLabel | String | Short label for the shortcut. |
 | longLabel | String | Long label for the shortcut. |
-| iconFolderName | String | Folder name of the shortcut's icon. For example, if the icon is in `./android/app/src/res/drawable` folder of your prject, you should use `'drawable'` here.
-  |
+| iconFolderName | String | Folder name of the shortcut's icon. For example, if the icon is in `./android/app/src/res/drawable` folder of your prject, you should use `'drawable'` here.|
 | iconName | String | Name of the icon, without extension name. |
 
 ### Remove App ShortCut
