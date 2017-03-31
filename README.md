@@ -66,7 +66,8 @@ RNAppShortcuts.addShortCut({
   longLabel: 'sample label',
   iconFolderName: 'drawable',
   iconName: 'icon'
-}) ```
+})
+```
 
 **Update App Shortcut**
 ```js
