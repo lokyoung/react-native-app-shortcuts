@@ -53,29 +53,6 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addShortcut(ReadableMap shortcutDetails) {
-        if (Build.VERSION.SDK_INT < 25) return;
-        if (isShortcutExist(shortcutDetails.getString(ID_KEY))) return;
-
-        String activityName = DEFAULT_ACTIVITY;
-        if (shortcutDetails.getString(ACTIVITY_NAME_KEY) != null) {
-            activityName = shortcutDetails.getString(ACTIVITY_NAME_KEY);
-        }
-
-        ShortcutInfo shortcut = initShortcut(
-                shortcutDetails.getString(ID_KEY),
-                shortcutDetails.getString(SHORT_LABEL_KEY),
-                shortcutDetails.getString(LONG_LABEL_KEY),
-                shortcutDetails.getString(ICON_FOLDER_KEY),
-                shortcutDetails.getString(ICON_NAME_KEY),
-                activityName
-        );
-
-        ShortcutManager shortcutManager = getShortCutManager();
-        shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
-    }
-
-    @ReactMethod
     public void removeShortcut(String id) {
         if (Build.VERSION.SDK_INT < 25) return;
 
@@ -103,6 +80,17 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void addShortcut(ReadableMap shortcutDetails) {
+        if (Build.VERSION.SDK_INT < 25) return;
+        if (isShortcutExist(shortcutDetails.getString(ID_KEY))) return;
+
+        ShortcutInfo shortcut = initShortcut(shortcutDetails);
+
+        ShortcutManager shortcutManager = getShortCutManager();
+        shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
+    }
+
+    @ReactMethod
     public void updateShortcut(ReadableMap shortcutDetail) {
         if (Build.VERSION.SDK_INT < 25) return;
 
@@ -112,14 +100,7 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
                 activityName = shortcutDetail.getString(ACTIVITY_NAME_KEY);
             }
 
-            ShortcutInfo shortcut = initShortcut(
-                    shortcutDetail.getString(ID_KEY),
-                    shortcutDetail.getString(SHORT_LABEL_KEY),
-                    shortcutDetail.getString(LONG_LABEL_KEY),
-                    shortcutDetail.getString(ICON_FOLDER_KEY),
-                    shortcutDetail.getString(ICON_NAME_KEY),
-                    activityName
-            );
+            ShortcutInfo shortcut = initShortcut(shortcutDetail);
 
             ShortcutManager shortcutManager = getShortCutManager();
             shortcutManager.updateShortcuts(Arrays.asList(shortcut));
@@ -129,31 +110,30 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
     }
 
     @Nullable
-    private ShortcutInfo initShortcut(String id, String shortLabel, String longLabel, String iconFolderName, String iconName, String activityName) {
+    private ShortcutInfo initShortcut(ReadableMap shortcutDetail) {
         if (Build.VERSION.SDK_INT < 25) return null;
 
-        Activity currentActivity = this.reactContext.getCurrentActivity();
-        if (activityName == null) {
-            activityName = "MainActivity";
-        }
+        String activityName = DEFAULT_ACTIVITY;
         try {
-            Intent intent = new Intent(currentActivity.getApplicationContext(), Class.forName("MainActivity").getClass());
-            intent.putExtra("shortcutId", id);
-            intent.setAction(Intent.ACTION_VIEW);
+            activityName = shortcutDetail.getString(ACTIVITY_NAME_KEY);
+        } catch (Exception e) {
 
-            Context currentContext = currentActivity.getApplicationContext();
-            int iconId = currentContext.getResources().getIdentifier(iconName, iconFolderName, currentContext.getPackageName());
-
-            ShortcutInfo shortcut = new ShortcutInfo.Builder(currentActivity, id)
-                    .setShortLabel(shortLabel)
-                    .setLongLabel(longLabel)
-                    .setIcon(Icon.createWithResource(currentActivity.getApplicationContext(), iconId))
-                    .setIntent(intent)
-                    .build();
-            return shortcut;
-        } catch (ClassNotFoundException e) {
-            return null;
         }
+        Activity currentActivity = this.reactContext.getCurrentActivity();
+        Intent intent = new Intent(currentActivity.getApplicationContext(), currentActivity.getClass());
+        intent.putExtra("shortcutId", shortcutDetail.getString(ID_KEY));
+        intent.setAction(Intent.ACTION_VIEW);
+
+        Context currentContext = currentActivity.getApplicationContext();
+        int iconId = currentContext.getResources().getIdentifier(shortcutDetail.getString(ICON_NAME_KEY), shortcutDetail.getString(ICON_FOLDER_KEY), currentContext.getPackageName());
+
+        ShortcutInfo shortcut = new ShortcutInfo.Builder(currentActivity, shortcutDetail.getString(ID_KEY))
+                .setShortLabel(shortcutDetail.getString(SHORT_LABEL_KEY))
+                .setLongLabel(shortcutDetail.getString(LONG_LABEL_KEY))
+                .setIcon(Icon.createWithResource(currentActivity.getApplicationContext(), iconId))
+                .setIntent(intent)
+                .build();
+        return shortcut;
     }
 
     private boolean isShortcutExist(String id) {

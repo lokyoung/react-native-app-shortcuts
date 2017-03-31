@@ -10,7 +10,8 @@ If your app targets Android 7.1 (API level 25) or higher, you can define shortcu
 <img src="https://developer.android.com/images/guide/topics/ui/shortcuts.png" height="400" />
 
 ## Requirements
-Android SDK version >= `25`
+- Android SDK version >= `25`
+- React Native >= `0.40`
 
 ## Getting started
 
@@ -36,6 +37,18 @@ Android SDK version >= `25`
   	```
       compile project(':react-native-app-shortcuts')
   	```
+4. Make sure the android sdk version specify to >= `25` in `android/app/build.gradle`:  
+  ```
+    android {
+      compileSdkVersion 25
+      buildToolsVersion "25.0.2"
+
+      defaultConfig {
+          applicationId "com.test"
+          minSdkVersion 16
+          targetSdkVersion 25
+      }
+  ```
 
 ## Usage
 Import the package
@@ -52,10 +65,8 @@ RNAppShortcuts.addShortCut({
   shortLabel: 'sample',
   longLabel: 'sample label',
   iconFolderName: 'drawable',
-  iconName: 'icon',
-  activityName: 'MainActivity'
-})
-```
+  iconName: 'icon'
+}) ```
 
 **Update App Shortcut**
 ```js
@@ -64,8 +75,7 @@ RNAppShortcuts.updateShortCut({
   shortLabel: 'updated',
   longLabel: 'updated label',
   iconFolderName: 'drawable',
-  iconName: 'icon',
-  activityName: 'AnotherActivity'
+  iconName: 'icon'
 })
 ```
 
@@ -78,7 +88,6 @@ RNAppShortcuts.updateShortCut({
 | iconFolderName | String | Folder name of the shortcut's icon. For example, if the icon is in `./android/app/src/res/drawable` folder of your prject, you should use `'drawable'` here.
   |
 | iconName | String | Name of the icon, without extension name. |
-| activityName | String | **default: 'MainActivity'** Name of the activity which the intent of the shortcut will go to. Since there is only one activity(MainActivity) in most React Naive app. So we set it as the default value. This options is optional. |
 
 ### Remove App ShortCut
 
@@ -105,8 +114,6 @@ RNAppShortcuts.exists('id').then(function() {
 ```
 
 ### Handle App Shortcut
-In Native android, we set an Intent to describe the behavior after trigger the shortcut. But in React Native, since there mostly only one activtity, that is the `MainActivity`. As well you can let the shortcut turn to other Activity you have created. We can just handle the shortcut after it triggered in React Native by JavaScript.
-
 `RNAppShortcuts.handleShortcut` will trigger after you click the shortcut. And you will get the id of the shortcut here.
 ```js
 RNAppShortcuts.handleShortcut(function(id) {
