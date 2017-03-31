@@ -1,0 +1,6 @@
+#!/bin/sh
+
+react-native unlink react-native-app-shortcuts
+npm uninstall react-native-app-shortcuts --save
+npm install ../../react-native-app-shortcuts --save
+react-native link react-native-app-shortcuts
