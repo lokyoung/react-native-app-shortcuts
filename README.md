@@ -60,7 +60,7 @@ import RNAppShortcuts from 'react-native-app-shortcuts';
 
 **Add App Shortcut**
 ```js
-RNAppShortcuts.addShortCut({
+RNAppShortcuts.addShortcut({
   id: 'id1',
   shortLabel: 'sample',
   longLabel: 'sample label',
@@ -71,7 +71,7 @@ RNAppShortcuts.addShortCut({
 
 **Update App Shortcut**
 ```js
-RNAppShortcuts.updateShortCut({
+RNAppShortcuts.updateShortcut({
   id: 'id1',
   shortLabel: 'updated',
   longLabel: 'updated label',
@@ -94,7 +94,7 @@ RNAppShortcuts.updateShortCut({
 
 **Remove specify shortcut**
 
-You can remove a shortcut just by passing the id into `RNAppShortcuts.removeShortCut`.
+You can remove a shortcut just by passing the id into `RNAppShortcuts.removeShortcut`.
 ```js  
 RNAppShortcuts.removeShortCut('id')
 ```
