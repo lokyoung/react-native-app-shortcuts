@@ -1,6 +1,6 @@
 {
   "name": "react-native-app-shortcuts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React Native library for creating app shortcuts in android",
   "main": "index.js",
   "repository": {
