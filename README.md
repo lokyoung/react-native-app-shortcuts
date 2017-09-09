@@ -91,7 +91,7 @@ RNAppShortcuts.updateShortcut({
 | longLabel | String | Long label for the shortcut. |
 | iconFolderName | String | Folder name of the shortcut's icon. For example, if the icon is in `./android/app/src/res/drawable` folder of your prject, you should use `'drawable'` here.|
 | iconName | String | Name of the icon, without extension name. |
-| oorder | Number | Position of the shortcut. The lower the number is (0 being the minimum value), the higher the icon will positionned. |
+| order | Number | Position of the shortcut. The lower the number is (0 being the minimum value), the higher the icon will positionned. |
 
 ### Remove App ShortCut
 
