@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -30,6 +31,7 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
     private final String ICON_FOLDER_KEY = "iconFolderName";
     private final String ICON_NAME_KEY = "iconName";
     private final String ACTIVITY_NAME_KEY = "activityName";
+    private final String ORDER_KEY = "order";
 
     public RNAppShortcutsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -73,7 +75,7 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
         if (Build.VERSION.SDK_INT < 25) return;
 
         if (isShortcutExist(id)) {
-            promise.resolve(null);
+            promise.resolve(true);
         } else {
             promise.reject(SHORTCUT_NOT_EXIST, "Not found this app shortcut");
         }
@@ -87,7 +89,16 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
         ShortcutInfo shortcut = initShortcut(shortcutDetails);
 
         ShortcutManager shortcutManager = getShortCutManager();
-        shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
+        List<ShortcutInfo> shortcuts = shortcutManager.getDynamicShortcuts();
+
+        if (shortcuts.size() >= shortcutManager.getMaxShortcutCountPerActivity() &&
+                shortcuts.size() > 0) {
+            shortcuts.remove(shortcuts.size() - 1);
+            shortcuts.add(0, shortcut);
+            shortcutManager.setDynamicShortcuts(shortcuts);
+        } else {
+            shortcutManager.addDynamicShortcuts(Collections.singletonList(shortcut));
+        }
     }
 
     @ReactMethod
@@ -130,9 +141,11 @@ public class RNAppShortcutsModule extends ReactContextBaseJavaModule {
         ShortcutInfo shortcut = new ShortcutInfo.Builder(currentActivity, shortcutDetail.getString(ID_KEY))
                 .setShortLabel(shortcutDetail.getString(SHORT_LABEL_KEY))
                 .setLongLabel(shortcutDetail.getString(LONG_LABEL_KEY))
+                .setRank(shortcutDetail.getInt(ORDER_KEY))
                 .setIcon(Icon.createWithResource(currentActivity.getApplicationContext(), iconId))
                 .setIntent(intent)
                 .build();
+
         return shortcut;
     }
 
