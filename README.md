@@ -25,7 +25,7 @@ If your app targets Android 7.1 (API level 25) or higher, you can define shortcu
 
 #### Android
 
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
+1. Open up `android/app/src/main/java/[...]/MainApplication.java`
   - Add `import com.rnas.RNAppShortcutsPackage;` to the imports at the top of the file
   - Add `new RNAppShortcutsPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
@@ -65,7 +65,8 @@ RNAppShortcuts.addShortcut({
   shortLabel: 'sample',
   longLabel: 'sample label',
   iconFolderName: 'drawable',
-  iconName: 'icon'
+  iconName: 'icon',
+  order: 0
 })
 ```
 
@@ -76,7 +77,8 @@ RNAppShortcuts.updateShortcut({
   shortLabel: 'updated',
   longLabel: 'updated label',
   iconFolderName: 'drawable',
-  iconName: 'icon'
+  iconName: 'icon',
+  order: 1
 })
 ```
 
@@ -89,6 +91,7 @@ RNAppShortcuts.updateShortcut({
 | longLabel | String | Long label for the shortcut. |
 | iconFolderName | String | Folder name of the shortcut's icon. For example, if the icon is in `./android/app/src/res/drawable` folder of your prject, you should use `'drawable'` here.|
 | iconName | String | Name of the icon, without extension name. |
+| oorder | Number | Position of the shortcut. The lower the number is (0 being the minimum value), the higher the icon will positionned. |
 
 ### Remove App ShortCut
 
