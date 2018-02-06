@@ -1,7 +1,7 @@
 # react-native-app-shortcuts
 
 ## Introduction
-Library for creating Android [App Shortcuts](https://developer.android.com/guide/topics/ui/shortcuts.html) in React Natvie.
+Library for creating Android [App Shortcuts](https://developer.android.com/guide/topics/ui/shortcuts.html) in [React Native](http://facebook.github.io/react-native).
 
 **Google Official intro for App Shortcuts**
 
